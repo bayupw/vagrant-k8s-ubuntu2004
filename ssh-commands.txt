@@ -1,0 +1,45 @@
+# Export vagrant ssh-config
+vagrant ssh-config > ssh.config
+
+# SSH to control node
+ssh -F .\ssh.config control
+
+# SSH to worker node1
+ssh -F .\ssh.config worker1
+
+# SSH to worker node1
+ssh -F .\ssh.config worker2
+
+# kube config
+sudo mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+# kube config
+export KUBECONFIG=/etc/kubernetes/admin.conf
+
+# check cilium status
+cilium status
+
+# test cilium connectivity
+cilium connectivity test
+
+# static pod manifests
+ls /etc/kubernetes/manifests
+
+sudo systemctl status kubelet.service
+sudo systemctl status containerd.service
+
+# join worker nodes
+kubeadm token create --print-join-command
+
+alias k='kubectl' 
+alias kgp='kubectl get pods -o wide' 
+alias kd='kubectl describe'
+alias kr='kubectl run'
+alias krepl='kubectl replace --force -grace-period=0 -f'
+export dry='--dry-run=client -o yaml' 
+
+kubectl cluster-info
+
+sudo apt-get install -y bash-completion

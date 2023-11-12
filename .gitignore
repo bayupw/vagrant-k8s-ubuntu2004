@@ -1,0 +1,20 @@
+# ignore .vagrant
+.vagrant/
+
+# ignore archive scripts
+scripts/archive/
+
+# ignore log files
+*.log
+
+# ignore box / patch
+*.box
+
+# ignore ssh-config
+ssh.config
+
+# ignore kubeadm-join folder
+kubeadm-join/
+
+# ignore directory ignore
+ignore/
